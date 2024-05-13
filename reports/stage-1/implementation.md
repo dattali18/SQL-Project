@@ -21,11 +21,8 @@ The database will be designed to handle multiple entities such as flights, airli
 
 This project will help us understand and implement key database concepts such as entity-relationship modeling, normalization, and database management. It will also provide valuable experience in designing and implementing a database system for a complex real-world scenario.
 
-#### Purpose
-#todo
-#### Structure
-#todo
 ### Schema & ERD
+
 #### Entities for Flights Management:
 
 1. **Flights**
@@ -106,10 +103,14 @@ This project will help us understand and implement key database concepts such as
 
 This diagram represents the relationships between the entities in the Flights Management part of the airport database system. Each entity is connected based on its relationship with other entities. If you need further adjustments or explanations, feel free to ask!
 
-![[dds.png]]
+![dds](/screenShots/stage-1/dds-1.png)
+![dds](/screenShots/stage-1/dds.png)
+
 
 #### ER Diagram:
-![[erd.png]]
+
+![erd](/screenShots/stage-1/erd-1.png)
+
 ## SQL Code
 This is the code that was generated using `claude`
 ```sql

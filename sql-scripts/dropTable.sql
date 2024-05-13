@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS Passengers;
 -- Drop the CrewMembers table
 DROP TABLE IF EXISTS CrewMembers;
 
--- Drop the Aircrafts table
+-- Drop the Aircraft table
 DROP TABLE IF EXISTS Aircrafts;
 
 -- Drop the Airlines table

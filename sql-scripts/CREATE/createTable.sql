@@ -9,7 +9,7 @@ CREATE TABLE Airports (
     Location VARCHAR(100)
 );
 
-CREATE TABLE Aircrafts (
+CREATE TABLE Aircraft (
     Aircraft_ID INT PRIMARY KEY,
     Aircraft_Type VARCHAR(50),
     Capacity INT
@@ -46,7 +46,7 @@ CREATE TABLE Flights
     Airport_ID INT NOT NULL,
     Airline_ID INT NOT NULL,
     PRIMARY KEY (Flight_ID),
-    FOREIGN KEY (Aircraft_ID) REFERENCES Aircrafts(Aircraft_ID),
+    FOREIGN KEY (Aircraft_ID) REFERENCES Aircraft(Aircraft_ID),
     FOREIGN KEY (Airport_ID) REFERENCES Airports(Airport_ID),
     FOREIGN KEY (Airline_ID) REFERENCES Airlines(Airline_ID)
 );

@@ -103,13 +103,13 @@ This project will help us understand and implement key database concepts such as
 
 This diagram represents the relationships between the entities in the Flights Management part of the airport database system. Each entity is connected based on its relationship with other entities. If you need further adjustments or explanations, feel free to ask!
 
-![dds](/screenShots/stage-1/dds-1.png)
-![dds](/screenShots/stage-1/dds.png)
+![dds](/screen-shots/stage-1/dds-1.png)
+![dds](/screen-shots/stage-1/dds.png)
 
 
 #### ER Diagram:
 
-![erd](/screenShots/stage-1/erd-1.png)
+![erd](/screen-shots/stage-1/erd-1.png)
 
 ## SQL Code
 This is the code that was generated using `claude`

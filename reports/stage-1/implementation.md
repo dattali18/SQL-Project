@@ -5,7 +5,7 @@
 ### Enterprise: Airport
 
 1. **Flights Management**
-   - **Entities**: Flights, Airlines, Airports, Routes, Passengers, Crew Members, Aircrafts, Flight Status, Booking
+   - **Entities**: Flights, Airlines, Airports, Routes, Passengers, Crew Members, Aircraft, Flight Status, Booking
 
 2. **Goods & Services Management**
    - **Entities**: Goods (e.g., luggage, cargo), Services (e.g., parking, catering), Inventory, Suppliers, Service Requests, Service Providers, Contracts
@@ -77,7 +77,7 @@ This project will help us understand and implement key database concepts such as
    - **Relationships**:
      - One-to-Many (1:M) with Flights
 
-6. **Aircrafts**
+6. **Aircraft**
    - **Attributes**: 
 	   1. Aircraft_ID (Primary Key) : `INTEGER`
 	   2. Aircraft_Type : `VARCHAR`
@@ -94,7 +94,7 @@ This project will help us understand and implement key database concepts such as
 	    4. Booking_Date : `DATE`
 	    5. Seat_Number : `VARCHAR`
     - **Strong Entity**: No
-	    - **Reason**: Because booking table has no meaning by itself, it as meaning only when attached to a certain flight
+	    - **Reason**: Because booking table has no meaning by itself, it has meaning only when attached to a certain flight
     - **Relationships**:
         - Many-to-Many (M:M) with Passengers (through Booking table)
         - Many-to-Many (M:M) with Flights (through Booking table)
@@ -103,13 +103,13 @@ This project will help us understand and implement key database concepts such as
 
 This diagram represents the relationships between the entities in the Flights Management part of the airport database system. Each entity is connected based on its relationship with other entities. If you need further adjustments or explanations, feel free to ask!
 
-![dds](/screenShots/stage-1/dds-1.png)
-![dds](/screenShots/stage-1/dds.png)
+![dds](/screen-shots/stage-1/dds-1.png)
+![dds](/screen-shots/stage-1/dds.png)
 
 
 #### ER Diagram:
 
-![erd](/screenShots/stage-1/erd-1.png)
+![erd](/screen-shots/stage-1/erd-1.png)
 
 ## SQL Code
 This is the code that was generated using `claude`
@@ -150,7 +150,7 @@ CREATE TABLE CrewMembers (
     Contact_Number VARCHAR(20)
 );
 
-CREATE TABLE Aircrafts (
+CREATE TABLE Aircraft (
     Aircraft_ID INT PRIMARY KEY,
     Aircraft_Type VARCHAR(50),
     Capacity INT
@@ -183,7 +183,7 @@ CREATE TABLE Airports
   PRIMARY KEY (AIRPORT_ID)
 );
 
-CREATE TABLE Aircrafts
+CREATE TABLE Aircraft
 (
   AIRCRAFT_ID INT NOT NULL,
   AIRCRAFT_TYPE VARCHAR(50) NOT NULL,

@@ -1,88 +1,63 @@
 CREATE TABLE Airlines (
-    Airline_ID INT PRIMARY KEY,
-    Airline_Name VARCHAR(50)
+    AIRLINE_ID INT PRIMARY KEY,
+    AIRLINE_NAME VARCHAR(100)
 );
 
 CREATE TABLE Airports (
-    Airport_ID INT PRIMARY KEY,
-    Airport_Name VARCHAR(100),
-    Location VARCHAR(100)
+    AIRPORT_ID INT PRIMARY KEY,
+    AIRPORT_NAME VARCHAR(10),
+    LOCATION VARCHAR(100)
 );
 
 CREATE TABLE Aircraft (
-    Aircraft_ID INT PRIMARY KEY,
-    Aircraft_Type VARCHAR(50),
-    Capacity INT
+    AIRCRAFT_ID INT PRIMARY KEY,
+    AIRCRAFT_TYPE VARCHAR(100),
+    CAPACITY INT
 );
 
 CREATE TABLE Passengers (
-    Passenger_ID INT PRIMARY KEY,
-    Name VARCHAR(100),
-    Email VARCHAR(100),
-    Phone_Number VARCHAR(20)
+    PASSENGER_ID INT PRIMARY KEY,
+    NAME VARCHAR(100),
+    EMAIL VARCHAR(120),
+    PHONE_NUMBER VARCHAR(20)
 );
-
--- CREATE TABLE Flights (
---     Flight_ID INT PRIMARY KEY,
---     Flight_Number VARCHAR(10),
---     Departure_Time DATETIME,
---     Arrival_Time DATETIME,
---     Status VARCHAR(20),
---     Aircraft_ID INT FOREIGN KEY REFERENCES Aircrafts(Aircraft_ID),
---     Departure_Airport_ID INT FOREIGN KEY REFERENCES Airports(Airport_ID),
---     Arrival_Airport_ID INT FOREIGN KEY REFERENCES Airports(Airport_ID)
--- );
 
 CREATE TABLE Flights
 (
-    Flight_ID INT NOT NULL,
-    Flight_Number INT NOT NULL,
-    Departure_Time DATE NOT NULL,
-    Arrival_Time DATE NOT NULL,
-    Departure_Airport_ID INT NOT NULL,
-    Arrival_Airport_ID INT NOT NULL,
-    Status VARCHAR(20) NOT NULL,
-    Aircraft_ID INT NOT NULL,
-    Airport_ID INT NOT NULL,
-    Airline_ID INT NOT NULL,
-    PRIMARY KEY (Flight_ID),
-    FOREIGN KEY (Aircraft_ID) REFERENCES Aircraft(Aircraft_ID),
-    FOREIGN KEY (Airport_ID) REFERENCES Airports(Airport_ID),
-    FOREIGN KEY (Airline_ID) REFERENCES Airlines(Airline_ID)
+    FLIGHT_ID INT NOT NULL,
+    FLIGHT_NUMBER varchar(10) NOT NULL,
+    DEPARTURE_TIME DATE NOT NULL,
+    ARRIVAL_TIME DATE NOT NULL,
+    DEPARTURE_AIRPORT INT NOT NULL,
+    ARRIVAL_AIRPORT INT NOT NULL,
+    STATUS VARCHAR(20) NOT NULL,
+    AIRCRAFT_ID INT NOT NULL,
+    AIRPORT_ID INT NOT NULL,
+    AIRLINE_ID INT NOT NULL,
+    PRIMARY KEY (FLIGHT_ID),
+    FOREIGN KEY (AIRCRAFT_ID) REFERENCES Aircraft(AIRCRAFT_ID),
+    FOREIGN KEY (AIRPORT_ID) REFERENCES Airports(AIRPORT_ID),
+    FOREIGN KEY (AIRLINE_ID) REFERENCES Airlines(AIRLINE_ID)
 );
 
--- CREATE TABLE Booking (
---     Booking_ID INT PRIMARY KEY,
---     Flight_ID INT FOREIGN KEY REFERENCES Flights(Flight_ID),
---     Passenger_ID INT FOREIGN KEY REFERENCES Passengers(Passenger_ID),
---     Booking_Date DATE,
---     Seat_Number VARCHAR(10)
--- );
 
 CREATE TABLE Bookings
 (
-    Booking_ID INT NOT NULL,
-    Seat_Number VARCHAR(10) NOT NULL,
-    Booking_Date INT NOT NULL,
-    Passenger_ID INT NOT NULL,
-    Flight_ID INT NOT NULL,
-    PRIMARY KEY (Booking_Date, Passenger_ID, Flight_ID),
-    FOREIGN KEY (Passenger_ID) REFERENCES Passengers(Passenger_ID),
-    FOREIGN KEY (Flight_ID) REFERENCES Flights(Flight_ID)
+    BOOKING_ID INT NOT NULL,
+    SEAT_NUMBER VARCHAR(10) NOT NULL,
+    BOOKING_DATE INT NOT NULL,
+    PASSENGER_ID INT NOT NULL,
+    FLIGHT_ID INT NOT NULL,
+    PRIMARY KEY (BOOKING_DATE, PASSENGER_ID, FLIGHT_ID),
+    FOREIGN KEY (PASSENGER_ID) REFERENCES Passengers(PASSENGER_ID),
+    FOREIGN KEY (FLIGHT_ID) REFERENCES Flights(FLIGHT_ID)
 );
-
--- CREATE TABLE CrewMembers (
---     Crew_ID INT PRIMARY KEY,
---     Name VARCHAR(100),
---     Role VARCHAR(50),
---     Contact_Number VARCHAR(20)
--- );
 
 CREATE TABLE CrewMembers
 (
-    Crew_ID INT NOT NULL,
-    Name VARCHAR(100) NOT NULL,
-    Role VARCHAR(20) NOT NULL,
-    Contact_Number VARCHAR(20) NOT NULL,
-    PRIMARY KEY (Crew_ID)
+    CREW_ID INT NOT NULL,
+    CREW_NAME VARCHAR(100) NOT NULL,
+    CREW_ROLE VARCHAR(50) NOT NULL,
+    -- CONTACT_NUMBER VARCHAR(120) NOT NULL,
+    PRIMARY KEY (CREW_ID)
 );

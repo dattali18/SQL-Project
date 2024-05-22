@@ -1,5 +1,5 @@
 -- Drop the Booking table first
-DROP TABLE Booking;
+DROP TABLE Bookings;
 
 -- Drop the Flights table
 DROP TABLE Flights;

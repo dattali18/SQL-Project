@@ -7,7 +7,10 @@
 1. **Flights Management**
    - **Entities**: Flights, Airlines, Airports, Routes, Passengers, Crew Members, Aircraft, Flight Status, Booking
 
+> [!NOTE] This part is up to the other team so we have no control over this
+
 2. **Goods & Services Management**
+
    - **Entities**: Goods (e.g., luggage, cargo), Services (e.g., parking, catering), Inventory, Suppliers, Service Requests, Service Providers, Contracts
 
 3. **User Management**
@@ -23,162 +26,222 @@ This project will help us understand and implement key database concepts such as
 
 ### Schema & ERD
 
-#### Entities for Flights Management:
+Sure! Here is a detailed description of the database design for the Flights Management system, incorporating the SQL script for table creation:
 
-1. **Flights**
-   - **Attributes**: 
-	   1. Flight_ID (Primary Key) : `INTEGER`
-	   2. Flight_Number : `VARCHAR`
-	   3. Departure_Time : `DATE`
-	   4. Arrival_Time : `DATE`
-	   5. Aircraft_ID (Foreign Key) : `INTEGER`
-	   6. Departure_Airport_ID (Foreign Key) : `INTEGER`
-	   7. Arrival_Airport_ID (Foreign Key): `INTEGER`
-	   8. Status: `[READY, IN_AIR, LANDED]`
-   - **Strong Entity**: Yes
-   - **Relationships**:
-     - One-to-One (1:1) with Aircraft
-     - One-to-Many (1:M) with Airports
+### Entities for Flights Management:
 
-2. **Airlines**
-   - **Attributes**: 
-	   1. Airline_ID (Primary Key) : `INTEGER`
-	   2. Airline_Name : `VARCHAR`
+1. **Airlines**
+
+   - **Attributes**:
+     - Airline_ID (Primary Key): `INTEGER`
+     - Airline_Name: `VARCHAR(100)`
    - **Strong Entity**: Yes
    - **Relationships**:
      - One-to-Many (1:M) with Flights
 
-3. **Airports**
-   - **Attributes**: 
-	   1. Airport_ID (Primary Key) : `INTEGER`
-	   2. Airport_Name : `VARCHAR`
-	   3. Location : `VARCHAR`
+2. **Airports**
+
+   - **Attributes**:
+     - Airport_ID (Primary Key): `INTEGER`
+     - Airport_Name: `VARCHAR(100)`
+     - Location: `VARCHAR(100)`
+   - **Strong Entity**: Yes
+   - **Relationships**:
+     - One-to-Many (1:M) with Flights (Departure_Airport and Arrival_Airport)
+
+3. **Aircraft**
+
+   - **Attributes**:
+     - Aircraft_ID (Primary Key): `INTEGER`
+     - Aircraft_Type: `VARCHAR(100)`
+     - Capacity: `INTEGER`
    - **Strong Entity**: Yes
    - **Relationships**:
      - One-to-Many (1:M) with Flights
 
 4. **Passengers**
-   - **Attributes**: 
-	   1. Passenger_ID (Primary Key) : `INTEGER`
-	   2. Name : `VARCHAR`
-	   3. Email : `VARCHAR`
-	   4. Phone_Number : `VARCHAR`
+
+   - **Attributes**:
+     - Passenger_ID (Primary Key): `INTEGER`
+     - Passenger_Name: `VARCHAR(100)`
+     - Passenger_Phone: `VARCHAR(20)`
+     - Passenger_Email: `VARCHAR(150)`
+     - Passport_Number: `VARCHAR(100)`
+     - Passenger_Age: `INTEGER`
    - **Strong Entity**: Yes
    - **Relationships**:
-     - Many-to-Many (M:M) with Flights (through a Booking table)
+     - Many-to-Many (M:M) with Flights (through Booking)
 
-5. **Crew Members**
-   - **Attributes**: 
-	   1. Crew_ID (Primary Key) : `INTEGER`
-	   2. Name : `VARCHAR`
-	   3. Role : `[PILOT, STUARDS, MEDICAL]`
-	   4. Contact_Number : `VARCHAR`
+5. **Flights**
+
+   - **Attributes**:
+     - Flight_ID (Primary Key): `INTEGER`
+     - Flight_Number: `VARCHAR(15)`
+     - Departure_Time: `DATE`
+     - Arrival_Time: `DATE`
+     - Departure_Airport: `INTEGER` (Foreign Key)
+     - Arrival_Airport: `INTEGER` (Foreign Key)
+     - Flight_Status: `VARCHAR(20)`
+     - Aircraft_ID: `INTEGER` (Foreign Key)
+     - Airport_ID: `INTEGER` (Foreign Key)
+     - Airline_ID: `INTEGER` (Foreign Key)
+   - **Strong Entity**: Yes
+   - **Relationships**:
+     - One-to-Many (1:M) with Aircraft
+     - One-to-Many (1:M) with Airports (Departure and Arrival)
+     - One-to-Many (1:M) with CrewMembers
+     - Many-to-Many (M:M) with Passengers (through Booking)
+
+6. **Booking**
+
+   - **Attributes**:
+     - Booking_ID (Primary Key): `INTEGER`
+     - Seat_Number: `VARCHAR(10)`
+     - Booking_Date: `DATE`
+     - Passenger_ID: `INTEGER` (Foreign Key)
+     - Flight_ID: `INTEGER` (Foreign Key)
+   - **Weak Entity**: Yes
+     - **Reason**: Booking has no meaning by itself; it has meaning only when attached to a specific flight and passenger.
+   - **Relationships**:
+     - Many-to-Many (M:M) with Passengers
+     - Many-to-Many (M:M) with Flights
+
+7. **CrewMembers**
+   - **Attributes**:
+     - Crew_ID (Primary Key): `INTEGER`
+     - Crew_Name: `VARCHAR(100)`
+     - Crew_Role: `VARCHAR(50)`
+     - Flight_ID: `INTEGER` (Foreign Key)
    - **Strong Entity**: Yes
    - **Relationships**:
      - One-to-Many (1:M) with Flights
 
-6. **Aircraft**
-   - **Attributes**: 
-	   1. Aircraft_ID (Primary Key) : `INTEGER`
-	   2. Aircraft_Type : `VARCHAR`
-	   3. Capacity : `INTEGER`
-   - **Strong Entity**: Yes
-   - **Relationships**:
-     - One-to-Many (1:M) with Flights
+## Database Normal Form
 
-7. **Booking**
-    - **Attributes**: 
-	    1. Booking_ID (Primary Key) : `INTEGER`
-	    2. Flight_ID (Foreign Key) : `INTEGER`
-	    3. Passenger_ID (Foreign Key) : `INTEGER`
-	    4. Booking_Date : `DATE`
-	    5. Seat_Number : `VARCHAR`
-    - **Strong Entity**: No
-	    - **Reason**: Because booking table has no meaning by itself, it has meaning only when attached to a certain flight
-    - **Relationships**:
-        - Many-to-Many (M:M) with Passengers (through Booking table)
-        - Many-to-Many (M:M) with Flights (through Booking table)
+### Normalization Explanation
+
+Our database schema for the Flights Management system is normalized to the Third Normal Form (`3NF`). Each table has been carefully designed to ensure that all non-key attributes are fully dependent on the primary key and not on any other non-key attribute, thereby eliminating any transitive dependencies. This design ensures that our schema is free from redundancy and potential update anomalies, leading to more efficient and reliable data management.
+
+#### Detailed Explanation:
+
+1. **Airlines**
+
+   - Primary Key: `Airline_ID`
+   - Non-key attributes (`Airline_Name`) are fully dependent on the primary key and do not depend on each other.
+
+2. **Airports**
+
+   - Primary Key: `Airport_ID`
+   - Non-key attributes (`Airport_Name`, `Location`) are fully dependent on the primary key and do not depend on each other.
+
+3. **Aircraft**
+
+   - Primary Key: `Aircraft_ID`
+   - Non-key attributes (`Aircraft_Type`, `Capacity`) are fully dependent on the primary key and do not depend on each other.
+
+4. **Passengers**
+
+   - Primary Key: `Passenger_ID`
+   - Non-key attributes (`Passenger_Name`, `Passenger_Phone`, `Passenger_Email`, `Passport_Number`, `Passenger_Age`) are fully dependent on the primary key and do not depend on each other.
+
+5. **Flights**
+
+   - Primary Key: `Flight_ID`
+   - Non-key attributes (`Flight_Number`, `Departure_Time`, `Arrival_Time`, `Departure_Airport`, `Arrival_Airport`, `Flight_Status`, `Aircraft_ID`, `Airline_ID`) are fully dependent on the primary key and do not depend on each other.
+
+6. **Booking**
+
+   - Composite Primary Key: (`Booking_ID`, `Passenger_ID`, `Flight_ID`)
+   - Non-key attributes (`Seat_Number`, `Booking_Date`) are fully dependent on the composite primary key and do not depend on each other.
+
+7. **CrewMembers**
+   - Primary Key: `Crew_ID`
+   - Non-key attributes (`Crew_Name`, `Crew_Role`, `Flight_ID`) are fully dependent on the primary key and do not depend on each other.
+
+### ERD Diagram
+
+```mermaid
+erDiagram
+    AIRLINES {
+        Airline_ID INT PK
+        Airline_Name VARCHAR
+    }
+    AIRPORTS {
+        Airport_ID INT PK
+        Airport_Name VARCHAR
+        Location VARCHAR
+    }
+    AIRCRAFT {
+        Aircraft_ID INT PK
+        Aircraft_Type VARCHAR
+        Capacity INT
+    }
+    PASSENGERS {
+        Passenger_ID INT PK
+        Name VARCHAR
+        Email VARCHAR
+        Phone_Number VARCHAR
+    }
+    FLIGHTS {
+        Flight_ID INT PK
+        Flight_Number VARCHAR
+        Departure_Time DATETIME
+        Arrival_Time DATETIME
+        Aircraft_ID INT FK
+        Departure_Airport_ID INT FK
+        Arrival_Airport_ID INT FK
+        Status VARCHAR
+    }
+    BOOKING {
+        Booking_ID INT PK
+        Flight_ID INT FK
+        Passenger_ID INT FK
+        Booking_Date DATE
+        Seat_Number VARCHAR
+    }
+    CREW_MEMBERS {
+        Crew_ID INT PK
+        Name VARCHAR
+        Role VARCHAR
+        Contact_Number VARCHAR
+    }
+
+    AIRLINES ||--o{ FLIGHTS : "Operates"
+    AIRPORTS ||--o{ FLIGHTS : "Departure/Arrival"
+    AIRCRAFT ||--o{ FLIGHTS : "Assigned to"
+    FLIGHTS ||--o{ BOOKING : "Has"
+    FLIGHTS ||--o{ CREW_MEMBERS : "Has"
+    PASSENGERS ||--o{ BOOKING : "Books"
+```
 
 #### DSD Diagram:
 
 This diagram represents the relationships between the entities in the Flights Management part of the airport database system. Each entity is connected based on its relationship with other entities. If you need further adjustments or explanations, feel free to ask!
 
-![dds](/screen-shots/stage-1/dds-1.png)
-![dds](/screen-shots/stage-1/dds.png)
-
+![dds](/screen-shots/stage-1/dsd-2.png)
 
 #### ER Diagram:
 
-![erd](/screen-shots/stage-1/erd-1.png)
+![erd](/screen-shots/stage-1/erd-2.png)
 
 ## SQL Code
-This is the code that was generated using `claude`
-```sql
-CREATE TABLE Flights (
-    Flight_ID INT PRIMARY KEY,
-    Flight_Number VARCHAR(10),
-    Departure_Time DATETIME,
-    Arrival_Time DATETIME,
-    Aircraft_ID INT FOREIGN KEY REFERENCES Aircrafts(Aircraft_ID),
-    Departure_Airport_ID INT FOREIGN KEY REFERENCES Airports(Airport_ID),
-    Arrival_Airport_ID INT FOREIGN KEY REFERENCES Airports(Airport_ID),
-    Status VARCHAR(20)
-);
 
-CREATE TABLE Airlines (
-    Airline_ID INT PRIMARY KEY,
-    Airline_Name VARCHAR(50)
-);
+### Creation script
 
-CREATE TABLE Airports (
-    Airport_ID INT PRIMARY KEY,
-    Airport_Name VARCHAR(100),
-    Location VARCHAR(100)
-);
-
-CREATE TABLE Passengers (
-    Passenger_ID INT PRIMARY KEY,
-    Name VARCHAR(100),
-    Email VARCHAR(100),
-    Phone_Number VARCHAR(20)
-);
-
-CREATE TABLE CrewMembers (
-    Crew_ID INT PRIMARY KEY,
-    Name VARCHAR(100),
-    Role VARCHAR(50),
-    Contact_Number VARCHAR(20)
-);
-
-CREATE TABLE Aircraft (
-    Aircraft_ID INT PRIMARY KEY,
-    Aircraft_Type VARCHAR(50),
-    Capacity INT
-);
-
-CREATE TABLE Booking (
-    Booking_ID INT PRIMARY KEY,
-    Flight_ID INT FOREIGN KEY REFERENCES Flights(Flight_ID),
-    Passenger_ID INT FOREIGN KEY REFERENCES Passengers(Passenger_ID),
-    Booking_Date DATE,
-    Seat_Number VARCHAR(10)
-);
-```
-
-This code was generated using `erdplus.com`
+This is the code that was generated using the `erdplus.com` tool and also making sure that the was no mistake in the code.
 
 ```sql
 CREATE TABLE Airlines
 (
   AIRLINE_ID INT NOT NULL,
-  AIRLINE_NAME VARCHAR(50) NOT NULL,
+  AIRLINE_NAME VARCHAR(100) NOT NULL,
   PRIMARY KEY (AIRLINE_ID)
 );
 
 CREATE TABLE Airports
 (
   AIRPORT_ID INT NOT NULL,
-  AIRPORT_NAME VARCHAR(100) NOT NULL,
+  AIRPORT_NAME VARCHAR(10) NOT NULL,
   LOCATION VARCHAR(100) NOT NULL,
   PRIMARY KEY (AIRPORT_ID)
 );
@@ -186,58 +249,81 @@ CREATE TABLE Airports
 CREATE TABLE Aircraft
 (
   AIRCRAFT_ID INT NOT NULL,
-  AIRCRAFT_TYPE VARCHAR(50) NOT NULL,
+  AIRCRAFT_TYPE VARCHAR(100) NOT NULL,
   CAPACITY INT NOT NULL,
   PRIMARY KEY (AIRCRAFT_ID)
 );
 
 CREATE TABLE Passengers
 (
-  P_ID INT NOT NULL,
-  P_NAME VARCHAR(100) NOT NULL,
-  P_PHONE VARCHAR(100) NOT NULL,
-  P_EMAIL VARCHAR(20) NOT NULL,
-  PRIMARY KEY (P_ID)
+  PASSENGER_ID INT NOT NULL,
+  PASSENGER_NAME VARCHAR(100) NOT NULL,
+  PASSENGER_PHONE VARCHAR(20) NOT NULL,
+  PASSENGER_EMAIL VARCHAR(150) NOT NULL,
+  PASSPORT_NUMBER VARCHAR(100) NOT NULL,
+  PASSENGER_AGE INT NOT NULL,
+  PRIMARY KEY (PASSENGER_ID)
 );
 
 CREATE TABLE Flights
 (
-  F_ID INT NOT NULL,
-  F_NUMBER INT NOT NULL,
+  FLIGHT_ID INT NOT NULL,
+  FLIGHT_NUMBER VARCHAR(15) NOT NULL,
   DEPARTURE_TIME DATE NOT NULL,
   ARRIVAL_TIME DATE NOT NULL,
-  AIRCRAFT_ID INT NOT NULL,
-  DEPARTURE_AIRPORT_ID INT NOT NULL,
-  ARRIVAL_AIRPORT_ID INT NOT NULL,
-  F_STATUS VARCHAR(20) NOT NULL,
+  DEPARTURE_AIRPORT INT NOT NULL,
+  ARRIVAL_AIRPORT INT NOT NULL,
+  FLIGHT_STATUS VARCHAR(20) NOT NULL,
   AIRCRAFT_ID INT NOT NULL,
   AIRPORT_ID INT NOT NULL,
   AIRLINE_ID INT NOT NULL,
-  PRIMARY KEY (F_ID),
-  FOREIGN KEY (AIRCRAFT_ID) REFERENCES Aircrafts(AIRCRAFT_ID),
+  PRIMARY KEY (FLIGHT_ID),
+  FOREIGN KEY (AIRCRAFT_ID) REFERENCES Aircraft(AIRCRAFT_ID),
   FOREIGN KEY (AIRPORT_ID) REFERENCES Airports(AIRPORT_ID),
   FOREIGN KEY (AIRLINE_ID) REFERENCES Airlines(AIRLINE_ID)
 );
 
 CREATE TABLE Booking
 (
-  B_ID INT NOT NULL,
+  BOOKING_ID INT NOT NULL,
   SEAT_NUMBER VARCHAR(10) NOT NULL,
-  BOOKING_DATE INT NOT NULL,
-  P_ID INT NOT NULL,
-  F_ID INT NOT NULL,
-  PRIMARY KEY (B_ID, P_ID, F_ID),
-  FOREIGN KEY (P_ID) REFERENCES Passengers(P_ID),
-  FOREIGN KEY (F_ID) REFERENCES Flights(F_ID)
+  BOOKING_DATE DATE NOT NULL,
+  PASSENGER_ID INT NOT NULL,
+  FLIGHT_ID INT NOT NULL,
+  PRIMARY KEY (BOOKING_ID, PASSENGER_ID, FLIGHT_ID),
+  FOREIGN KEY (PASSENGER_ID) REFERENCES Passengers(PASSENGER_ID),
+  FOREIGN KEY (FLIGHT_ID) REFERENCES Flights(FLIGHT_ID)
 );
 
 CREATE TABLE CrewMembers
 (
   CREW_ID INT NOT NULL,
   CREW_NAME VARCHAR(100) NOT NULL,
-  CREW_ROLE VARCHAR(20) NOT NULL,
-  F_ID INT NOT NULL,
+  CREW_ROLE VARCHAR(50) NOT NULL,
+  FLIGHT_ID INT NOT NULL,
   PRIMARY KEY (CREW_ID),
-  FOREIGN KEY (F_ID) REFERENCES Flights(F_ID)
+  FOREIGN KEY (FLIGHT_ID) REFERENCES Flights(FLIGHT_ID)
 );
 ```
+### Drop Script
+
+```sql
+DROP TABLE IF EXISTS CrewMembers;
+DROP TABLE IF EXISTS Booking;
+DROP TABLE IF EXISTS Flights;
+DROP TABLE IF EXISTS Passengers;
+DROP TABLE IF EXISTS Aircraft;
+DROP TABLE IF EXISTS Airports;
+DROP TABLE IF EXISTS Airlines;
+```
+
+## Generating the Data
+
+### `macharoo.com` & `generatedata.com` & `python`
+
+1. using `mockaroo.com` to generate the data for the database
+2. The data was generated in `CSV` format
+3. The data was then imported into the database using the `SQL` command
+
+## Screen Shots of the Data
+

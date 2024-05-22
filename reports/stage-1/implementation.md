@@ -7,14 +7,14 @@
 1. **Flights Management**
    - **Entities**: Flights, Airlines, Airports, Routes, Passengers, Crew Members, Aircraft, Flight Status, Booking
 
-> [!NOTE] This part is up to the other team so we have no control over this
-
 2. **Goods & Services Management**
 
    - **Entities**: Goods (e.g., luggage, cargo), Services (e.g., parking, catering), Inventory, Suppliers, Service Requests, Service Providers, Contracts
 
 3. **User Management**
    - **Entities**: Users (e.g., passengers, staff), Roles, Permissions, Accounts, Customer Feedback, Customer Support, Employee Records, Training Records
+
+> [!NOTE] This part is up to the other team, so we have no control over this
 
 ### Enterprise: Description
 
@@ -327,3 +327,40 @@ DROP TABLE IF EXISTS Airlines;
 
 ## Screen Shots of the Data
 
+- Airlines
+![Airlines](/screen-shots/stage-1/airline.png)
+
+- Airports
+![Airports](/screen-shots/stage-1/airport.png)
+
+- Aircraft
+![Aircraft](/screen-shots/stage-1/aircraft.png)
+
+- Passengers
+![Passengers](/screen-shots/stage-1/passenger.png)
+
+- Flights
+![Flights](/screen-shots/stage-1/flight.png)
+
+- Booking
+![Booking](/screen-shots/stage-1/booking.png)
+
+- Crew Members
+![Crew Members](/screen-shots/stage-1/crewmember.png)
+
+
+## Starting Queries
+
+- Query 1: Number of children under 8 years old that have a booking on a flight that departs from airport 1000 after a certain date
+```sql
+SELECT COUNT(*) AS NumberOfChildren
+FROM Flights
+         JOIN Bookings ON Flights.FLIGHT_ID = Bookings.FLIGHT_ID
+         JOIN Passengers ON Bookings.PASSENGER_ID = Passengers.PASSENGER_ID
+WHERE Flights.DEPARTURE_AIRPORT = 1000
+  AND Flights.DEPARTURE_TIME >= '2024-04-28'
+  AND Passengers.PASSENGER_AGE < 8;
+```
+
+- Output: `NumberOfChildren`
+![Query 1](/screen-shots/stage-1/query-1.png)

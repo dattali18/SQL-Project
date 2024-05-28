@@ -9,18 +9,42 @@ CREATE TABLE Airports (
     LOCATION VARCHAR(100)
 );
 ```
+will be using the Faker library to generate the data
+and the faker-airtravel library to generate the airport names
 """
+
+from faker import Faker
+from faker_airtravel import AirTravelProvider
+
 
 TABLE_NAME = "Airports"
 AIRPORT_ID = "AIRPORT_ID"
 AIRPORT_NAME = "AIRPORT_NAME"
 LOCATION = "LOCATION"
 
-def generate_airport_code(n: int = 200) -> list[str]:
-    pass
-
-def generate_airport_location(n: int = 200) -> list[str]:
-    pass
-
 def generate(n: int = 200) -> None:
-    pass
+    """
+    This function will generate n number of airports and insert them into a .csv file
+    the names of the table and the different columns are defined as global variables
+    we will be using the faker library to generate the data
+    the .csv file will be stored in the same dir as the script in /DATA/ folder
+    """    
+
+    # create the faker object
+    fake = Faker()
+    fake.add_provider(AirTravelProvider)
+
+    # create the .csv file
+    with open(f"DATA/{TABLE_NAME}.csv", "w") as f:
+        # write the header
+        f.write(f"{AIRPORT_ID},{AIRPORT_NAME},{LOCATION}\n")
+        # write the data
+        for i in range(n):
+            f.write(f"{i+1},{fake.airport_name()},{fake.airport_iata()}\n")
+
+
+def main():
+    generate()
+
+if __name__ == "__main__":
+    main()

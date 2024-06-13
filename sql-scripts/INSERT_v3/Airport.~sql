@@ -1,0 +1,3 @@
+INSERT INTO Airports (AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES (1000, 'JFK Airport New York', 'JFK');
+
+commit;

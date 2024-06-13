@@ -98,3 +98,4 @@ INSERT INTO CrewMembers(CREW_ID, CREW_NAME, CREW_ROLE, FLIGHT_ID) VALUES ('197',
 INSERT INTO CrewMembers(CREW_ID, CREW_NAME, CREW_ROLE, FLIGHT_ID) VALUES ('198', 'Anne-marie Edmundson', 'Cabin Crew', '1469');
 INSERT INTO CrewMembers(CREW_ID, CREW_NAME, CREW_ROLE, FLIGHT_ID) VALUES ('199', 'Tommie Syms', 'Cabin Crew', '1336');
 INSERT INTO CrewMembers(CREW_ID, CREW_NAME, CREW_ROLE, FLIGHT_ID) VALUES ('200', 'Anderson Killich', 'Senior Flight Attendant', '1353');
+commit;

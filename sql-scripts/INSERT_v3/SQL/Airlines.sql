@@ -48,3 +48,5 @@ INSERT INTO Airlines(AIRLINE_ID, AIRLINE_NAME) VALUES ('47', 'SkyGlide');
 INSERT INTO Airlines(AIRLINE_ID, AIRLINE_NAME) VALUES ('48', 'Pinnacle Airlines');
 INSERT INTO Airlines(AIRLINE_ID, AIRLINE_NAME) VALUES ('49', 'Altitude Air');
 INSERT INTO Airlines(AIRLINE_ID, AIRLINE_NAME) VALUES ('50', 'Voyager Airways');
+
+commit;

@@ -97,7 +97,7 @@ INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('96', 'Kalay Ai
 INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('97', 'Rae Lakes Airport', 'YRA');
 INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('98', 'Mangshi Airport', 'LUM');
 INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('99', 'Santa Vitória do Palmar Airport', 'CTQ');
-INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('100', 'Brockville - Thousand Islands Regional Tackaberry Airport', 'XBR');
+INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('100', 'Brockville - Thousand Islands Tackaberry Airport', 'XBR');
 INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('101', 'Alexandra Airport', 'ALR');
 INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('102', 'Ercan International Airport', 'ECN');
 INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('103', 'Kalymnos Airport', 'JKL');
@@ -198,3 +198,4 @@ INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('197', 'Togiak 
 INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('198', 'Shenzhen Baoan International Airport', 'SZX');
 INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('199', 'Menyamya Airport', 'MYX');
 INSERT INTO Airports(AIRPORT_ID, AIRPORT_NAME, LOCATION) VALUES ('200', 'Amchitka Army Airfield', 'AHT');
+commit;
